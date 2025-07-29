@@ -4,7 +4,8 @@ import TOCheckbox from "@/components/form/TOCheckbox";
 import TOInput from "@/components/form/TOInput";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { loginSchema } from "@/form-schema";
+import { signUpSchema } from "@/form-schema";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
@@ -12,17 +13,18 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
-type TLoginValue = z.infer<typeof loginSchema>;
+type TLoginValue = z.infer<typeof signUpSchema>;
 
-export default function LoginForm() {
+export default function SignupForm() {
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
 	const form = useForm<TLoginValue>({
-		resolver: zodResolver(loginSchema),
+		resolver: zodResolver(signUpSchema),
 		defaultValues: {
+			fullName: "",
 			email: "",
 			password: "",
-			rememberMe: true,
+			confirmPassword: "",
 		},
 	});
 
@@ -34,10 +36,10 @@ export default function LoginForm() {
 			<div className="space-y-5">
 				<div className="text-center">
 					<h1 className="text-primary-foreground font-semibold text-4xl">
-						Login
+						Sign Up
 					</h1>
 					<p className="text-gray-500 font-medium text-sm">
-						WelcomeBack,Please Enter your Details to Log In.
+						To Create Account, Please Fill in the From Below.
 					</p>
 				</div>
 				<Form {...form}>
@@ -45,6 +47,12 @@ export default function LoginForm() {
 						onSubmit={form.handleSubmit(handleLogin)}
 						className="space-y-5"
 					>
+						<TOInput
+							form={form}
+							name="fullName"
+							label="Full Name"
+							type="text"
+						/>
 						<TOInput
 							form={form}
 							name="email"
@@ -62,25 +70,23 @@ export default function LoginForm() {
 								</div>
 							}
 						/>
-						<div className="flex justify-between items-center">
-							<TOCheckbox
-								form={form}
-								label="Remember Me"
-								name="rememberMe"
-							/>
+						<TOInput
+							form={form}
+							name="confirmPassword"
+							label="Password"
+							type={showPassword ? "text" : "password"}
+							adornment={
+								<div onClick={handleClickShowPassword}>
+									{showPassword ? <EyeOff /> : <Eye />}
+								</div>
+							}
+						/>
 
-							<Link
-								href={"/auth/forgot-password"}
-								className="hover:underline text-primary-foreground/70 font-medium text-sm"
-							>
-								Forgot password?
-							</Link>
-						</div>
 						<Button
 							className="w-full bg-primary text-primary-foreground"
 							size={"lg"}
 						>
-							Login
+							Sign Up
 						</Button>
 					</form>
 				</Form>
@@ -93,12 +99,12 @@ export default function LoginForm() {
 					</div>
 
 					<p className="text-center text-primary-foreground/50 font-medium">
-						Don&apos;t have an account?{" "}
+						Already have an account?{" "}
 						<Link
-							href={"/auth/sign-up"}
+							href={"/auth/login"}
 							className="text-primary-foreground font-semibold"
 						>
-							Sign Up
+							Login
 						</Link>
 					</p>
 				</div>

@@ -51,7 +51,7 @@ export default function TOInput<T extends FieldValues>({
 								{...field}
 							/>
 							{adornment ? (
-								<div className=" absolute top-1/2 right-3.5 -translate-y-1/2">
+								<div className=" absolute top-1/2 right-3.5 -translate-y-1/2 cursor-pointer">
 									{adornment}
 								</div>
 							) : null}
