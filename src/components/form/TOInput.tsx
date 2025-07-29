@@ -37,7 +37,9 @@ export default function TOInput<T extends FieldValues>({
 			name={name}
 			render={({ field }) => (
 				<FormItem>
-					<FormLabel>{label}</FormLabel>
+					<FormLabel className="text-primary-foreground font-semibold">
+						{label}
+					</FormLabel>
 					<FormControl>
 						<div className="relative">
 							<Input

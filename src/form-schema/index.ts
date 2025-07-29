@@ -16,4 +16,5 @@ export const loginSchema = z.object({
 			"Password must contain at least one special character"
 		)
 		.trim(),
+	rememberMe: z.boolean().default(true).optional(),
 });
