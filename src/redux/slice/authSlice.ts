@@ -19,7 +19,7 @@ const initialState: TAuthState = {
 };
 
 const authSlice = createSlice({
-	name: "auth",
+	name: "sovftvance",
 	initialState,
 	reducers: {
 		setCredentials: (
@@ -30,7 +30,6 @@ const authSlice = createSlice({
 			state.token = token;
 		},
 
-		tokenReceived: () => {},
 		logout: (state) => {
 			state.user = null;
 			state.token = null;
@@ -41,5 +40,5 @@ const authSlice = createSlice({
 export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;
 
-export const selectedUser = (state: RootState) => state.auth.user;
-export const selectedToken = (state: RootState) => state.auth.token;
+export const selectedUser = (state: RootState) => state.softvance.user;
+export const selectedToken = (state: RootState) => state.softvance.token;

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/providers/ReduxProvider";
-
+import { Toaster } from "@/components/ui/sonner";
 const poppins = Poppins({
 	variable: "--font-poppins",
 	weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -29,7 +29,10 @@ export default function RootLayout({
 			<body
 				className={`${poppins.variable} ${geistMono.variable} antialiased`}
 			>
-				<ReduxProvider>{children}</ReduxProvider>
+				<ReduxProvider>
+					<main>{children}</main>
+				</ReduxProvider>
+				<Toaster />
 			</body>
 		</html>
 	);

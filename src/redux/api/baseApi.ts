@@ -10,7 +10,7 @@ export const baseApi = createApi({
 		baseUrl,
 		credentials: "include",
 		prepareHeaders: (headers, { getState }) => {
-			const token = (getState() as RootState).auth.token;
+			const token = (getState() as RootState).softvance.token;
 
 			if (token) {
 				headers.set("authorization", token);
@@ -19,5 +19,5 @@ export const baseApi = createApi({
 		},
 	}),
 	endpoints: () => ({}),
-	tagTypes: ["todos"],
+	tagTypes: ["todos", "users"],
 });

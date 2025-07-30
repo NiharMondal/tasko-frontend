@@ -5,20 +5,25 @@ import TOInput from "@/components/form/TOInput";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { signUpSchema } from "@/form-schema";
+import { useSignUpMutation } from "@/redux/api/authApi";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
-type TLoginValue = z.infer<typeof signUpSchema>;
+type TRegisterValue = z.infer<typeof signUpSchema>;
 
 export default function SignupForm() {
+	const router = useRouter();
+	const [signUp, { isLoading }] = useSignUpMutation();
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword((show) => !show);
-	const form = useForm<TLoginValue>({
+	const form = useForm<TRegisterValue>({
 		resolver: zodResolver(signUpSchema),
 		defaultValues: {
 			fullName: "",
@@ -28,8 +33,21 @@ export default function SignupForm() {
 		},
 	});
 
-	const handleLogin = async (values: TLoginValue) => {
-		console.log(values);
+	const handleLogin = async (values: TRegisterValue) => {
+		const data = {
+			fullName: values.fullName,
+			email: values?.email,
+			password: values.password,
+		};
+		try {
+			const res = await signUp(data).unwrap();
+			if (res.success) {
+				toast.success("Signed up successfully");
+				router.push("/auth/login");
+			}
+		} catch (error: any) {
+			toast.error(error?.data?.message);
+		}
 	};
 	return (
 		<div className="flex h-screen items-center px-8 sm:px-12 md:px-20">

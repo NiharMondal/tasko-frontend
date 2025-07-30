@@ -13,7 +13,7 @@ import {
 } from "redux-persist";
 
 const persistConfig = {
-	key: "auth",
+	key: "softvance",
 	version: 1,
 	storage,
 };
@@ -22,7 +22,7 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
 	reducer: {
-		auth: persistedReducer,
+		softvance: persistedReducer,
 		[baseApi.reducerPath]: baseApi.reducer,
 	},
 
