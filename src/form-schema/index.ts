@@ -54,3 +54,16 @@ export const signUpSchema = z
 			});
 		}
 	});
+
+export const createTodo = z.object({
+	category: z
+		.string("Category is required")
+		.nonempty("Category can not be empty")
+		.trim(),
+	status: z.enum(["ongoing", "pending", "collaborative", "done"]).optional(),
+	endDate: z.string().nonempty("Date can not be empty"),
+	description: z
+		.string()
+		.min(10, "Min length is 10")
+		.max(100, "Max length is 100"),
+});

@@ -123,3 +123,13 @@ html, body{
     @apply bg-background text-foreground ;
   }
 }
+
+
+@layer components{
+  .custom_bg {
+    background: url("/assets/header.png"), linear-gradient( to right, #60E5AE , #040612, #60E5AE);
+    background-repeat:  no-repeat;
+    background-position: right;
+
+  }
+}

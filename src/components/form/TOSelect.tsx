@@ -20,7 +20,7 @@ type Option = {
 	value: string;
 };
 
-type ESSelectProps<T extends FieldValues> = {
+type TOSelectProps<T extends FieldValues> = {
 	form: UseFormReturn<T>;
 	name: Path<T>;
 	label: string;
@@ -28,13 +28,13 @@ type ESSelectProps<T extends FieldValues> = {
 	options?: Option[];
 };
 
-export default function ESSelect<T extends FieldValues>({
+export default function TOSelect<T extends FieldValues>({
 	form,
 	name,
 	label,
 	placeholder = "Select an option",
 	options = [],
-}: ESSelectProps<T>) {
+}: TOSelectProps<T>) {
 	return (
 		<FormField
 			control={form.control}
@@ -47,7 +47,7 @@ export default function ESSelect<T extends FieldValues>({
 							value={field.value}
 							onValueChange={field.onChange}
 						>
-							<SelectTrigger>
+							<SelectTrigger className="min-w-full">
 								<SelectValue placeholder={placeholder} />
 							</SelectTrigger>
 							<SelectContent>
