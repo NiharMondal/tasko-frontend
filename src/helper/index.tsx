@@ -1,31 +1,27 @@
 export const categoryArray = [
 	{
 		label: "Art & Craft",
-		value: "art-and-craft",
+		value: "Art & Craft",
 	},
 	{
 		label: "Nature",
-		value: "nature",
+		value: "Nature",
 	},
 	{
 		label: "Family",
-		value: "family",
+		value: "Family",
 	},
 	{
 		label: "Sports",
-		value: "sports",
+		value: "Sports",
 	},
 	{
 		label: "Meditation",
-		value: "meditation",
+		value: "Meditation",
 	},
 ];
 export const statusArray = [
 	{
-		label: "All Task",
-		value: "",
-	},
-	{
 		label: "Pending",
 		value: "pending",
 	},
@@ -42,21 +38,20 @@ export const statusArray = [
 		value: "done",
 	},
 ];
-export const statusArrayForCreating = [
-	{
-		label: "Pending",
-		value: "pending",
-	},
-	{
-		label: "Ongoing",
-		value: "ongoing",
-	},
-	{
-		label: "Collaborative Task",
-		value: "collaborative",
-	},
-	{
-		label: "Done",
-		value: "done",
-	},
+
+export const labels = [
+	"Sport",
+	"Family",
+	"Nature",
+	"Art and Craft",
+	"Meditation",
+	"Friends",
+];
+export const colors = [
+	"#2f80ed",
+	"#bbdefb",
+	"#fb8c00",
+	"#ffcc80",
+	"#388e3c",
+	"#a5d6a7",
 ];

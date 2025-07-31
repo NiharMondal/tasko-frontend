@@ -1,3 +1,4 @@
+import { TResponse, TTodo } from "@/types";
 import { baseApi } from "./baseApi";
 
 const todoApi = baseApi.injectEndpoints({
@@ -11,8 +12,18 @@ const todoApi = baseApi.injectEndpoints({
 			invalidatesTags: ["todos"],
 		}),
 
-		allTodos: builder.query({
-			query: () => {
+		allTodos: builder.query<
+			TResponse<TTodo[]>,
+			Record<string, string | string[]>
+		>({
+			query: (query) => {
+				const params = new URLSearchParams();
+
+				Object.entries(query).forEach(([key, value]) => {
+					if (value?.length > 0) {
+						params.append(key, value.toString());
+					}
+				});
 				return {
 					url: "/todos",
 					method: "GET",
@@ -21,8 +32,26 @@ const todoApi = baseApi.injectEndpoints({
 
 			providesTags: ["todos"],
 		}),
+		myTodos: builder.query<TResponse<TTodo[]>, Record<string, string>>({
+			query: (query) => {
+				const params = new URLSearchParams();
 
-		singleTodo: builder.query({
+				Object.entries(query).forEach(([key, value]) => {
+					if (value?.trim().length > 0) {
+						params.append(key, value.toString());
+					}
+				});
+				return {
+					url: "/todos/my-todos",
+					method: "GET",
+					params,
+				};
+			},
+
+			providesTags: ["todos"],
+		}),
+
+		singleTodo: builder.query<TResponse<TTodo>, string>({
 			query: (id) => ({
 				url: `/todos/${id}`,
 				method: "GET",
@@ -36,7 +65,10 @@ const todoApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ["todos"],
 		}),
-		updateTodo: builder.mutation({
+		updateTodo: builder.mutation<
+			TResponse<TTodo>,
+			{ id: string; payload: Partial<TTodo> }
+		>({
 			query: ({ id, payload }) => ({
 				url: `/todos/${id}`,
 				method: "PATCH",
@@ -49,6 +81,7 @@ const todoApi = baseApi.injectEndpoints({
 
 export const {
 	useAllTodosQuery,
+	useMyTodosQuery,
 	useSingleTodoQuery,
 	useCreateTodoMutation,
 	useDeleteTodoMutation,

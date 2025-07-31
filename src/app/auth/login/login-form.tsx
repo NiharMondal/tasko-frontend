@@ -1,5 +1,6 @@
 "use client";
 
+import { setCookie } from "@/actions/auth";
 import TOCheckbox from "@/components/form/TOCheckbox";
 import TOInput from "@/components/form/TOInput";
 import { Button } from "@/components/ui/button";
@@ -42,6 +43,8 @@ export default function LoginForm() {
 			if (data?.success) {
 				toast.success("Logged in successfully");
 				const user = decodeToken(data?.result?.accessToken);
+				await setCookie(data?.result?.accessToken);
+
 				dispatch(
 					setCredentials({
 						user,
@@ -52,7 +55,7 @@ export default function LoginForm() {
 				if (user?.role === "admin") {
 					router.push("/admin");
 				} else {
-					router.push("/");
+					router.push("/dashboard");
 				}
 			}
 		} catch (error: any) {

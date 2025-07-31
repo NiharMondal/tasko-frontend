@@ -55,7 +55,7 @@ export const signUpSchema = z
 		}
 	});
 
-export const createTodo = z.object({
+export const createTodoSchema = z.object({
 	category: z
 		.string("Category is required")
 		.nonempty("Category can not be empty")
@@ -66,4 +66,18 @@ export const createTodo = z.object({
 		.string()
 		.min(10, "Min length is 10")
 		.max(100, "Max length is 100"),
+});
+export const editTodo = z.object({
+	category: z
+		.string("Category is required")
+		.nonempty("Category can not be empty")
+		.trim()
+		.optional(),
+	status: z.string().optional(),
+	endDate: z.string().nonempty("Date can not be empty").optional(),
+	description: z
+		.string()
+		.min(10, "Min length is 10")
+		.max(100, "Max length is 100")
+		.optional(),
 });

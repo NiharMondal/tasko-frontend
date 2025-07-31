@@ -1,4 +1,5 @@
 import { assets } from "@/assets";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,8 +11,11 @@ export default function NotFound() {
 				width={500}
 				height={500}
 				alt="NotFound Icon"
+				className="mb-5"
 			/>
-			<Link href="/">Return Home</Link>
+			<Link href="/">
+				<Button className="w-[300px]">Return To Home</Button>
+			</Link>
 		</div>
 	);
 }

@@ -22,6 +22,7 @@ export type TTodo = {
 	category: string;
 	description: string;
 	status: string;
+	endDate: string;
 	user: string;
 	createdAt: string;
 	updatedAt: string;

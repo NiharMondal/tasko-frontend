@@ -7,23 +7,23 @@ import { Calendar, FilePlus, LineSquiggle, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import TODialog from "../shared/TODialog";
 import CreateTaskForm from "../CreateTaskForm";
-import { useDeleteTodoMutation, useMyTodosQuery } from "@/redux/api/todoApi";
-import { useAppSelector } from "@/hooks/redux.hook";
-import { selectedUser } from "@/redux/slice/authSlice";
+import { useAllTodosQuery, useDeleteTodoMutation } from "@/redux/api/todoApi";
+
 import { toast } from "sonner";
 import Link from "next/link";
 import moment from "moment";
 import NoTask from "./no-task";
 
-export default function TaskList() {
+export default function AdminTaskList() {
 	const [deleteTodo] = useDeleteTodoMutation();
-	const user = useAppSelector(selectedUser);
+
 	const [status, setStatus] = useState<string[]>([]);
 	const [category, setCategory] = useState<string[]>([]);
-	const { data: myTodos, isLoading } = useMyTodosQuery(
-		{ category: category.toString(), status: status.toString() },
-		{ skip: !user?.id }
-	);
+	const { data: todos, isLoading } = useAllTodosQuery({
+		category: category.toString(),
+		status: status.toString(),
+	});
+	console.log(todos);
 
 	const handleDeleteTodo = async (id: string) => {
 		Swal.fire({
@@ -79,10 +79,10 @@ export default function TaskList() {
 			{/** todo show card */}
 
 			<div className="mt-10 w-full">
-				{myTodos?.result?.length === 0 && <NoTask />}
+				{todos?.result?.length === 0 && <NoTask />}
 				{isLoading && <p>Loading...</p>}
 				<div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-					{myTodos?.result.map((todo) => (
+					{todos?.result.map((todo) => (
 						<div
 							className="bg-card shadow-xl p-5 rounded-2xl space-y-5 ring-1 ring-primary/15"
 							key={todo._id}
