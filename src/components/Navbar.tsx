@@ -91,11 +91,34 @@ export default function Navbar() {
 									<li>
 										<Link href={"/"}> Home</Link>
 									</li>
-									<li>
-										<Link href={"/dashboard"}>
+
+									{user?.role === "admin" ? (
+										<Link
+											href={"/admin"}
+											className={cn(
+												"flex items-center gap-x-1",
+												path === "/admin"
+													? "text-primary"
+													: ""
+											)}
+										>
+											<FileSpreadsheet className="size-4" />
 											Dashboard
 										</Link>
-									</li>
+									) : (
+										<Link
+											href={"/dashboard"}
+											className={cn(
+												"flex items-center gap-x-1",
+												path === "/dashboard"
+													? "text-primary"
+													: ""
+											)}
+										>
+											<FileSpreadsheet className="size-4" />
+											Dashboard
+										</Link>
+									)}
 									<li>
 										<Button
 											variant={"destructive"}
