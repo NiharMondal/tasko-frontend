@@ -5,7 +5,7 @@ const protectedRoutes = ["/admin", "/dashboard"];
 
 export function middleware(req: NextRequest) {
 	const pathName = req.nextUrl.pathname;
-	const token = req.cookies.get("accessToken")?.value;
+	const token = req.cookies.get("softvence")?.value;
 
 	// If route is protected and no token
 	if (protectedRoutes.some((route) => pathName.startsWith(route)) && !token) {
